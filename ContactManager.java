@@ -33,15 +33,16 @@ public interface ContactManager {
      */
     PastMeeting getPastMeeting(int id);
 
-/**
- * Returns the FUTURE meeting with the requested ID, or null if there is none.
- *
- * @param id the ID for the meeting
- * @return the meeting with the requested ID, or null if it there is none.
- *  @throws  IllegalArgumentException  if  there  is  a  meeting  with  that  ID  happening
- *                 in  the  past
- */
-FutureMeeting  getFutureMeeting(int  id);
+    /**
+     * Returns the FUTURE meeting with the requested ID, or null if there is none.
+     *
+     * @param id the ID for the meeting
+     * @return the meeting with the requested ID, or null if it there is none.
+     *  @throws  IllegalArgumentException  if  there  is  a  meeting  with  that  ID  happening
+     *                 in  the  past
+     */
+    FutureMeeting  getFutureMeeting(int  id);
+
     /**
      *  Returns  the  meeting  with  the  requested  ID,  or  null  if  it  there  is  none.
      *
@@ -91,6 +92,7 @@ FutureMeeting  getFutureMeeting(int  id);
      *  @throws  NullPointerException  if  the  contact  is  null
      */
     List<PastMeeting>  getPastMeetingListFor(Contact  contact);
+
     /**
      *  Create  a  new  record  for  a  meeting  that  took  place  in  the  past.
      *
@@ -142,16 +144,18 @@ FutureMeeting  getFutureMeeting(int  id);
      *  @throws  NullPointerException  if  the  parameter  is  null
      */
     Set<Contact>  getContacts(String  name);
-/**
- * Returns a list containing the contacts that correspond to the IDs.
- * Note that this method can be used to retrieve just one contact by passing only one ID.
- *
- * @param ids an arbitrary number of contact IDs
- * @return a list containing the contacts that correspond to the IDs.
- * @throws IllegalArgumentException if no IDs are provided or if
- * any of the provided IDs does not correspond to a real contact
- */
-Set<Contact> getContacts(int... ids);
+
+    /**
+     * Returns a list containing the contacts that correspond to the IDs.
+     * Note that this method can be used to retrieve just one contact by passing only one ID.
+     *
+     * @param ids an arbitrary number of contact IDs
+     * @return a list containing the contacts that correspond to the IDs.
+     * @throws IllegalArgumentException if no IDs are provided or if
+     * any of the provided IDs does not correspond to a real contact
+     */
+    Set<Contact> getContacts(int... ids);
+
     /**
      * Save all data to disk.
      *
