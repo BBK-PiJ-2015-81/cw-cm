@@ -35,4 +35,10 @@ public class ContactTest {
         assertEquals(expectedNotes, testContact.getNotes());
     }
 
+    @Test
+    public void testingaddNotes() {
+        testContact.addNotes("Really!");
+        assertEquals(expectedNotes + "\n" + "Really!", testContact.getNotes());
+    }
+
 }

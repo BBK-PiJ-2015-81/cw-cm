@@ -15,18 +15,22 @@ public class ContactImpl implements Contact, java.io.Serializable {
     }
 
     public int getId() {
-        return 0;
+        return this.ID;
     }
 
     public String getName() {
-        return null;
+        return this.name;
     }
 
     public String getNotes() {
-        return null;
+        return this.notes;
     }
 
     public void addNotes(String note) {
-
+        if (getNotes().equals(""))  {
+            notes = note;
+        } else {
+            notes = notes + "\n" + note;
+        }
     }
 }
