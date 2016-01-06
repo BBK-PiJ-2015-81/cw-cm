@@ -20,7 +20,7 @@ public class MeetingTest {
         expectedID = 1;
         expectedDate = Calendar.getInstance();
         expectedContacts = new HashSet<Contact>();
-        testMeeting =  new MeetingImpl(expectedID, expectedDate, expectedContacts);
+        testMeeting =  new FutureMeetingImpl(expectedID, expectedDate, expectedContacts);
     }
 
 

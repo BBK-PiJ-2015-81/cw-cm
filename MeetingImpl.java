@@ -16,23 +16,25 @@ public abstract class MeetingImpl implements Meeting, java.io.Serializable   {
     //The Constructor
     public MeetingImpl(int ID, Calendar date, Set<Contact> contacts)    {
 
-
+        this.ID = ID;
+        this.date = date;
+        this.contacts = contacts;
 
 
     }
 
 
 
-    public int getID()  {
-        return 0;
+    public int getId()  {
+        return ID;
     }
 
     public Calendar getDate()   {
-        return null;
+        return date;
     }
 
     public Set<Contact> getContacts()   {
-        return null;
+        return contacts;
     }
 
 
