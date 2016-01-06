@@ -1,6 +1,9 @@
 /**
  * Created by andre on 05/01/2016.
  */
+
+import java.io.Serializable;
+
 public class ContactImpl implements Contact, java.io.Serializable {
 
     private int ID;
