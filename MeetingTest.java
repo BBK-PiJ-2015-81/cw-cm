@@ -20,9 +20,12 @@ public class MeetingTest {
     public void setUp() {
         expectedID = 1;
         expectedDate = Calendar.getInstance();
+
         expectedContacts = new HashSet<Contact>();
         expectedContacts.add(new ContactImpl(1, "Donald Trump", "Running for president"));
+
         emptyContacts = new HashSet<Contact>();
+
         testMeeting =  new FutureMeetingImpl(expectedID, expectedDate, expectedContacts);
 
     }
@@ -34,12 +37,12 @@ public class MeetingTest {
     }
 
     @Test (expected = NullPointerException.class)
-    public void testingDateThrowsException() {
+    public void testingNullDateThrowsException() {
         testMeeting =  new FutureMeetingImpl(expectedID, expectedDate, null);
     }
 
     @Test (expected = NullPointerException.class)
-    public void testingContactThrowsException() {
+    public void testingNullContactThrowsException() {
         testMeeting =  new FutureMeetingImpl(expectedID, null, expectedContacts);
     }
 
@@ -49,7 +52,20 @@ public class MeetingTest {
         testMeeting =  new FutureMeetingImpl(expectedID, expectedDate, emptyContacts);
     }
 
+    @Test
+    public void testingGetID() {
+        assertEquals(expectedID, testMeeting.getId());
+    }
 
+    @Test
+    public void testingGetDate() {
+        assertEquals(expectedDate, testMeeting.getDate());
+    }
+
+    @Test
+    public void testingGetContacts() {
+        assertEquals(expectedContacts, testMeeting.getContacts());
+    }
 
 
 }
