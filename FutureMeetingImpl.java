@@ -12,6 +12,4 @@ public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting {
         super(ID, date, contacts);
     }
 
-
-
 }

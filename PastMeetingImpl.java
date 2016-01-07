@@ -11,8 +11,15 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 
     //Call MeetingImpl's constructor with arguments the PastMeetingImpl constructor takes.
     public PastMeetingImpl(int ID, Calendar date, Set<Contact> contacts, String notes){
+
         super(ID, date, contacts);
+
+
+
+
     }
+
+
 
     public String getNotes()    {
         return notes;

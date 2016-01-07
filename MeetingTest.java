@@ -14,13 +14,17 @@ public class MeetingTest {
     private int expectedID;
     private Calendar expectedDate;
     private Set<Contact> expectedContacts;
+    private Set<Contact> emptyContacts;
 
     @Before
     public void setUp() {
         expectedID = 1;
         expectedDate = Calendar.getInstance();
         expectedContacts = new HashSet<Contact>();
+        expectedContacts.add(new ContactImpl(1, "Donald Trump", "Running for president"));
+        emptyContacts = new HashSet<Contact>();
         testMeeting =  new FutureMeetingImpl(expectedID, expectedDate, expectedContacts);
+
     }
 
 
@@ -31,15 +35,19 @@ public class MeetingTest {
 
     @Test (expected = NullPointerException.class)
     public void testingDateThrowsException() {
-        testMeeting =  new FutureMeetingImpl(1, expectedDate, null);
+        testMeeting =  new FutureMeetingImpl(expectedID, expectedDate, null);
     }
 
     @Test (expected = NullPointerException.class)
     public void testingContactThrowsException() {
-        testMeeting =  new FutureMeetingImpl(1, null, expectedContacts);
+        testMeeting =  new FutureMeetingImpl(expectedID, null, expectedContacts);
     }
 
-
+    @Test (expected = IllegalArgumentException.class)
+    public void testingEmptyContactsSetThrowsException() {
+        emptyContacts = new HashSet<Contact>();
+        testMeeting =  new FutureMeetingImpl(expectedID, expectedDate, emptyContacts);
+    }
 
 
 
