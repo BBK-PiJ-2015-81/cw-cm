@@ -14,7 +14,12 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 
         super(ID, date, contacts);
 
-        this.notes = notes;
+        if (notes == null)  {
+            throw new NullPointerException("Exception! A note was not provided.");
+        }   else{
+            this.notes = notes;
+        }
+
 
 
     }
