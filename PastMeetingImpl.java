@@ -14,7 +14,7 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 
         super(ID, date, contacts);
 
-
+        this.notes = notes;
 
 
     }
