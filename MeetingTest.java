@@ -24,6 +24,22 @@ public class MeetingTest {
     }
 
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testingIdThrowsException() {
+        testMeeting =  new FutureMeetingImpl(-1, expectedDate, expectedContacts);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testingDateThrowsException() {
+        testMeeting =  new FutureMeetingImpl(1, expectedDate, null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testingContactThrowsException() {
+        testMeeting =  new FutureMeetingImpl(1, null, expectedContacts);
+    }
+
+
 
 
 
