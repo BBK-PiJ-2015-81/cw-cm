@@ -37,12 +37,12 @@ public class MeetingTest {
     }
 
     @Test (expected = NullPointerException.class)
-    public void testingNullDateThrowsException() {
+    public void testingNullContactThrowsException() {
         testMeeting =  new FutureMeetingImpl(expectedID, expectedDate, null);
     }
 
     @Test (expected = NullPointerException.class)
-    public void testingNullContactThrowsException() {
+    public void testingNullDateThrowsException() {
         testMeeting =  new FutureMeetingImpl(expectedID, null, expectedContacts);
     }
 

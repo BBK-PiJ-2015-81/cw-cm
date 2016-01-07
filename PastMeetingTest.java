@@ -40,12 +40,12 @@ public class PastMeetingTest {
     }
 
     @Test (expected = NullPointerException.class)
-    public void testingNullDateThrowsException() {
+    public void testingNullContactThrowsException() {
         testMeeting =  new PastMeetingImpl(expectedID, expectedDate, null, expectedNotes);
     }
 
     @Test (expected = NullPointerException.class)
-    public void testingNullContactThrowsException() {
+    public void testingNullDateThrowsException() {
         testMeeting =  new PastMeetingImpl(expectedID, null, expectedContacts, expectedNotes);
     }
 
@@ -58,6 +58,11 @@ public class PastMeetingTest {
     @Test
     public void testingGetNotes() {
         assertEquals(expectedNotes, testMeeting.getNotes());
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testingNullNoteThrowsException() {
+        testMeeting = new PastMeetingImpl(expectedID, expectedDate, expectedContacts, null);
     }
 
 }
