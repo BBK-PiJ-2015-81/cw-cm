@@ -18,6 +18,26 @@ public class ContactManagerImpl implements ContactManager {
 
     public ContactManagerImpl() {
 
+        //Set the current date/time for the other methods
+        presentTime = new GregorianCalendar();
+
+        //Make a file
+        File myContacts = new File("." + File.separator + MYFILE);
+
+        //Check if file exists
+        if(myContacts.exists()) {
+            //If the file does exist read it in
+
+
+
+
+        } else {
+            // If the file doesn't exist make it
+            contacts = new HashSet<Contact>();
+            meetings = new ArrayList<Meeting>();
+        }
+
+
     }
 
 
