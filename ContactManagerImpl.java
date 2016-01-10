@@ -26,11 +26,16 @@ public class ContactManagerImpl implements ContactManager {
 
         //Check if file exists
         if(myContacts.exists()) {
+
             //If the file does exist read it in
-
-
-
-
+            try(ObjectInputStream myInput = new ObjectInputStream(new BufferedInputStream(new FileInputStream(myContacts)))){
+                contacts = (Set<Contact>)myInput.readObject();
+                meetings = (List<Meeting>)myInput.readObject();
+            } catch (ClassNotFoundException exception)  {
+                exception.printStackTrace();
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
         } else {
             // If the file doesn't exist make it
             contacts = new HashSet<Contact>();
