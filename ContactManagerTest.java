@@ -6,14 +6,16 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.*;
 import java.io.*;
-import java.nio.file.*;
 
 public class ContactManagerTest {
 
     private ContactManager myManager;
     private ContactManager myEmptyManager;
     private Calendar futureDate;
+    private Calendar pastDate;
+    private FutureMeeting testFutureMeeting;
     private FutureMeeting testMeeting;
+    private FutureMeeting testPastMeeting;
     private Set<Contact> players;
 
     @Before
@@ -40,10 +42,15 @@ public class ContactManagerTest {
         // Create a future date
         futureDate = new GregorianCalendar(2020, 2, 5);
 
+        // Create a past date
+        pastDate = new GregorianCalendar(2010, 2, 5);
+
         // Choose players attending the meeting
         players = myManager.getContacts(4, 6, 9, 10);
 
+        testFutureMeeting = myManager.addFutureMeeting(players, futureDate);
         testMeeting = myManager.addFutureMeeting(players, futureDate);
+        testPastMeeting = myManager.addNewPastMeeting(players, pastDate);
 
     }
 
@@ -53,7 +60,7 @@ public class ContactManagerTest {
         myManager = null;
         myEmptyManager = null;
         futureDate = null;
-        testMeeting = null;
+        testFutureMeeting = null;
         players = null;
 
         File myContacts = new File("." + File.separator + "contacts.txt");
@@ -111,17 +118,29 @@ public class ContactManagerTest {
     @Test
     public void testingGetFutureMeeting()   {
 
-        assertEquals(1, testMeeting.getId());
-        assertEquals(futureDate, testMeeting.getDate());
-        assertEquals(players, testMeeting.getContacts());
+        assertEquals(1, testFutureMeeting.getId());
+        assertEquals(futureDate, testFutureMeeting.getDate());
+        assertEquals(players, testFutureMeeting.getContacts());
     }
 
 
     // Testing getFutureMeetingList
 
+    @Test (expected = NullPointerException.class)
+    public void testingGetFutureMeetingListNull() {
+        List<Meeting> testList = myManager.getFutureMeetingList(null);
+    }
+
     // Testing getMeeting
 
+    @Test (expected = NullPointerException.class)
+    public void testingGetMeetingListNull() {
+        List<Meeting> testList = myManager.getFutureMeetingList(null);
+    }
+
     // Testing getMeetingListOn
+
+    
 
     // Testing addNewPastMeeting
 
