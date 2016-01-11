@@ -206,16 +206,6 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
-
-    /**
-     *  Create  a  new  contact  with  the  specified  name  and  notes.
-     *
-     *  @param  name  the  name  of  the  contact.
-     *  @param  notes  notes  to  be  added  about  the  contact.
-     *  @return  the  ID  for  the  new  contact
-     *  @throws  IllegalArgumentException  if  the  name  or  the  notes  are  empty  strings
-     *  @throws  NullPointerException  if  the  name  or  the  notes  are  null
-     */
     public int  addNewContact(String  name,  String  notes) {
 
         if ((name == null) || (notes == null)) {
@@ -230,16 +220,7 @@ public class ContactManagerImpl implements ContactManager {
         }
     }
 
-    /**
-     *  Returns  a  list  with  the  contacts  whose  name  contains  that  string.
-     *
-     *  If  the  string  is  the  empty  string,  this  methods  returns  the  set
-     * that contains all current contacts.
-     *
-     *  @param  name  the  string  to  search  for
-     *  @return  a  list  with  the  contacts  whose  name  contains  that  string.
-     *  @throws  NullPointerException  if  the  parameter  is  null
-     */
+
     public Set<Contact>  getContacts(String  name)      {
 
         if (name == null) {
@@ -257,15 +238,7 @@ public class ContactManagerImpl implements ContactManager {
         }
     }
 
-    /**
-     * Returns a list containing the contacts that correspond to the IDs.
-     * Note that this method can be used to retrieve just one contact by passing only one ID.
-     *
-     * @param ids an arbitrary number of contact IDs
-     * @return a list containing the contacts that correspond to the IDs.
-     * @throws IllegalArgumentException if no IDs are provided or if
-     * any of the provided IDs does not correspond to a real contact
-     */
+
     public Set<Contact> getContacts(int... ids)     {
 
         if(ids.length == 0) {
@@ -310,6 +283,24 @@ public class ContactManagerImpl implements ContactManager {
      */
     public void flush()     {
 
+        //Make a file
+        File myContacts = new File("." + File.separator + MYFILE);
+
+        //Check if file exists
+        if(!myContacts.exists()) {
+
+            //If the file does not exist write it
+            try {
+                myContacts.createNewFile();
+            } catch(IOException exception)  {
+                exception.printStackTrace();
+            }
+        } try(ObjectOutputStream myOutput = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(myContacts)))){
+            myOutput.writeObject(contacts);
+            myOutput.writeObject(meetings);
+        }   catch(IOException exception) {
+            exception.printStackTrace();
+        }
 
 
     }
