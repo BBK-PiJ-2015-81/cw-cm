@@ -164,9 +164,11 @@ public class ContactManagerImpl implements ContactManager {
         List<Meeting> sortedContacts = new ArrayList<Meeting>();
 
         for (Meeting i : meetings) {
-            if (date.get(Calendar.YEAR) == date.get(Calendar.YEAR)
-                    && date.get(Calendar.MONTH) == date.get(Calendar.MONTH)
-                    && date.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH)) {
+
+
+            if (date.get(Calendar.YEAR) == i.getDate().get(Calendar.YEAR)
+                    && date.get(Calendar.MONTH) == i.getDate().get(Calendar.MONTH)
+                    && date.get(Calendar.DAY_OF_MONTH) == i.getDate().get(Calendar.DAY_OF_MONTH)) {
                 unsortedContacts.add(i);
             }
         }
@@ -184,18 +186,6 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
-    /**
-     *  Returns  the  list  of  past  meetings  in  which  this  contact  has  participated.
-     *
-     *  If  there  are  none,  the  returned  list  will  be  empty.  Otherwise,
-     *  the  list  will  be  chronologically  sorted  and  will  not  contain  any
-     *  duplicates.
-     *
-     *  @param  contact  one  of  the  users  contacts
-     *  @return  the  list  of  future  meeting(s)  scheduled  with  this  contact  (maybe  empty).
-     *  @throws  IllegalArgumentException  if  the  contact  does  not  exist
-     *  @throws  NullPointerException  if  the  contact  is  null
-     */
     public List<PastMeeting>  getPastMeetingListFor(Contact  contact)      {
 
         // Check if contact exists in contact manager
@@ -269,7 +259,23 @@ public class ContactManagerImpl implements ContactManager {
      */
     public PastMeeting  addMeetingNotes(int  id,  String  text)     {
 
-        return null;
+        Meeting m = getMeeting(id);
+        if(m == null) {
+            throw new IllegalArgumentException("Exception! No meeting has this ID");
+        }
+        PastMeeting meetingsReturned = null;
+        if(m instanceof PastMeeting) {
+            PastMeeting pm = (PastMeeting)m;
+            meetingsReturned = new PastMeetingImpl(id, pm.getDate(), pm.getContacts(), pm.getNotes() + '\n' + text);
+        } else {
+            if(m.getDate().after(presentTime)) {
+                throw new IllegalStateException(
+                        "Exception! Notes cannot be added to future meetings");
+            }
+            meetingsReturned = new PastMeetingImpl(id, m.getDate(), m.getContacts(), text);
+        }
+        meetings.set((id - 1), meetingsReturned);
+        return meetingsReturned;
 
     }
 

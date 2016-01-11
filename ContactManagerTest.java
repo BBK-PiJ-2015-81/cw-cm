@@ -17,6 +17,7 @@ public class ContactManagerTest {
     private FutureMeeting testMeeting;
     private PastMeeting testPastMeeting;
     private Set<Contact> players;
+    private Set<Contact> reserves;
 
     @Before
     public void setUp() {
@@ -47,12 +48,18 @@ public class ContactManagerTest {
 
         // Choose players attending the meeting
         players = myManager.getContacts(4, 6, 9, 10);
+        reserves = myManager.getContacts(1, 2, 3);
 
         // Build some test meetings
 
         testFutureMeeting = myManager.getFutureMeeting(myManager.addFutureMeeting(players, futureDate)); //Meeting id 1
         testMeeting = myManager.getFutureMeeting(myManager.addFutureMeeting(players, futureDate)); // Meeting id 2
-        myManager.addNewPastMeeting(players, pastDate,"Great meeting guys!"); // Meeting id 3
+        //myManager.addFutureMeeting(players, futureDate); // Meeting id ?
+
+
+        //myManager.addFutureMeeting(players, futureDate);
+        //myManager.addFutureMeeting(reserves, futureDate);
+        myManager.addNewPastMeeting(reserves, pastDate,"Great meeting guys!"); // Meeting id 3
 
     }
 
@@ -62,8 +69,12 @@ public class ContactManagerTest {
         myManager = null;
         myEmptyManager = null;
         futureDate = null;
+        pastDate = null;
         testFutureMeeting = null;
+        testMeeting = null;
+        testPastMeeting = null;
         players = null;
+        reserves = null;
 
 
         File myContacts = new File("." + File.separator + "contacts.txt");
@@ -193,9 +204,10 @@ public class ContactManagerTest {
 
     // Testing addMeetingNotes
 
+    @Test
     public void testingAddMeetingNotes()   {
         myManager.addMeetingNotes(3, "Great work lads");
-        assertEquals("Great work lads", myManager.getPastMeeting(4).getNotes());
+        assertEquals("Great meeting guys!" + '\n' + "Great work lads", myManager.getPastMeeting(3).getNotes());
     }
 
 
