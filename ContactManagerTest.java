@@ -13,6 +13,7 @@ public class ContactManagerTest {
     private ContactManager myManager;
     private ContactManager myEmptyManager;
     private Calendar futureDate;
+    private FutureMeeting testMeeting;
     private Set<Contact> players;
 
     @Before
@@ -42,6 +43,8 @@ public class ContactManagerTest {
         // Choose players attending the meeting
         players = myManager.getContacts(4, 6, 9, 10);
 
+        testMeeting = myManager.addFutureMeeting(players, futureDate);
+
     }
 
     @After
@@ -50,6 +53,7 @@ public class ContactManagerTest {
         myManager = null;
         myEmptyManager = null;
         futureDate = null;
+        testMeeting = null;
         players = null;
 
         File myContacts = new File("." + File.separator + "contacts.txt");
@@ -85,6 +89,8 @@ public class ContactManagerTest {
 
     // Test Meeting Methods
 
+    // Testing addFutureMeeting
+
     @Test
     public void testingAddFutureMeeting()   {
         assertEquals(1, myManager.addFutureMeeting(players, futureDate));
@@ -99,4 +105,32 @@ public class ContactManagerTest {
     public void testingAddFutureMeetingNullDate()   {
         myManager.addFutureMeeting(players, null);
     }
+
+    // Testing getFutureMeeting
+
+    @Test
+    public void testingGetFutureMeeting()   {
+
+        assertEquals(1, testMeeting.getId());
+        assertEquals(futureDate, testMeeting.getDate());
+        assertEquals(players, testMeeting.getContacts());
+    }
+
+
+    // Testing getFutureMeetingList
+
+    // Testing getMeeting
+
+    // Testing getMeetingListOn
+
+    // Testing addNewPastMeeting
+
+    // Testing getPastMeeting
+
+    // Testing getPastMeetingListFor
+
+    // Testing addMeetingNotes
+
+
 }
+
