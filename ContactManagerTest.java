@@ -43,6 +43,11 @@ public class ContactManagerTest {
         myManager = null;
         myEmptyManager = null;
 
+        File myContacts = new File("." + File.separator + "contacts.txt");
+        if(myContacts.exists()){
+            myContacts.delete();
+        }
+
     }
 
 
@@ -50,11 +55,19 @@ public class ContactManagerTest {
 
     @Test
     public void testingConstructor() {
-        //ContactManager myManager = new ContactManagerImpl();
         assertNotNull(myEmptyManager);
         assertNotNull(myManager);
     }
 
-    
+    @Test
+    public void testingGetContacts() {
+        assertEquals(myManager.getContacts("Messi"),myManager.getContacts(9));
+    }
+
+    @Test
+    public void testingFlush() {
+        myManager.flush();
+        assertTrue( new File("." + File.separator + "contacts.txt").exists());
+    }
 
 }
