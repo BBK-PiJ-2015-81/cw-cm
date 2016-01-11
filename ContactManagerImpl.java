@@ -241,8 +241,19 @@ public class ContactManagerImpl implements ContactManager {
      */
     public Set<Contact>  getContacts(String  name)      {
 
-        return null;
-
+        if (name == null) {
+            throw new NullPointerException("Exception! You must have a valid name.");
+        } else if (name.equals("")) {
+            return contacts;
+        } else {
+            Set<Contact> contactsReturned = new HashSet<Contact>();
+            for(Contact i : contacts)   {
+                if(i.getName().contains(name)){
+                    contactsReturned.add(i);
+                }
+            }
+            return contactsReturned;
+        }
     }
 
     /**
