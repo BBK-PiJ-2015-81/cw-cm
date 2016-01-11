@@ -78,7 +78,7 @@ public class ContactManagerImpl implements ContactManager {
             if (i.getId() == id)    {
                 // Check if meeting is a future meeting
                 if (i instanceof FutureMeeting)   {
-                    throw new IllegalArgumentException("Exception! A Future Meeting is invalid");
+                    throw new IllegalStateException("Exception! A Future Meeting is invalid");
                 } else {
                     return (PastMeeting) i;
                 }
@@ -198,7 +198,42 @@ public class ContactManagerImpl implements ContactManager {
      */
     public List<PastMeeting>  getPastMeetingListFor(Contact  contact)      {
 
-        return null;
+        // Check if contact exists in contact manager
+        boolean existingContact = false;
+        for (Contact i : contacts) {
+            if (i.equals(contact)) {
+                existingContact = true;
+            }
+        }
+
+        if (contact == null) {
+            throw new NullPointerException("Exception! You must provide a Contact.");
+        } else if (!existingContact) {
+            throw new IllegalArgumentException("Exception! Cannot find Contact.");
+        } else {
+
+            // Put Contacts in a set to remove duplicates
+
+            Set<PastMeeting> unsortedContacts = new HashSet<PastMeeting>();
+            for (Meeting i : meetings) {
+                if ((i instanceof PastMeeting) && (i.getContacts().contains(contact))) {
+                    unsortedContacts.add((PastMeeting)i);
+                }
+            }
+
+            // Put my set in a list
+            List<PastMeeting> sortedContacts = new ArrayList<PastMeeting>();
+            for (PastMeeting i : unsortedContacts) {
+                sortedContacts.add(i);
+            }
+
+            Collections.sort(sortedContacts, new Comparator<Meeting>() {
+                public int compare(Meeting m1, Meeting m2) {
+                    return m1.getDate().compareTo(m2.getDate());
+                }
+            });
+            return sortedContacts;
+        }
 
     }
 
