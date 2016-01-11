@@ -45,12 +45,14 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
-    public int addFutureMeeting(Set<Contact> contacts, Calendar date)   {
+    public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 
         if ((date == null) || (contacts == null)) {
             throw new NullPointerException("Exception! You must provide contacts and a date");
-        } else if (contacts.size() == 0){
+        } else if (contacts.size() == 0) {
             throw new IllegalArgumentException("Exception! You must provide contacts");
+        } else if (contactsInManager(contacts) != contacts.size()) {
+            throw new IllegalArgumentException("Exception! You must provide existing contacts");
         } else if (date.compareTo(presentTime) < 0) {
             throw new IllegalArgumentException("Exception! You cannot provide a past date.");
         } else {
@@ -61,17 +63,6 @@ public class ContactManagerImpl implements ContactManager {
         }
     }
 
-
-    /**
-     * Returns the PAST meeting with the requested ID, or null if it there is none.
-     *
-     * The meeting must have happened at a past date.
-     *
-     * @param id the ID for the meeting
-     * @return the meeting with the requested ID, or null if it there is none.
-     * @throws IllegalStateException if there is a meeting with that ID happening
-     *         in the future
-     */
     public PastMeeting getPastMeeting(int id)   {
 
         for (Meeting i : meetings) {
@@ -85,7 +76,6 @@ public class ContactManagerImpl implements ContactManager {
             }
         }
         return null;
-
     }
 
     public FutureMeeting  getFutureMeeting(int  id)     {
@@ -235,6 +225,8 @@ public class ContactManagerImpl implements ContactManager {
             throw new IllegalArgumentException("Exception! You must provide contacts");
         } else if (date.compareTo(presentTime) > 0) {
             throw new IllegalArgumentException("Exception! You cannot provide a future date.");
+        } else if (contactsInManager(contacts) != contacts.size()) {
+            throw new IllegalArgumentException("Exception! You must provide existing contacts");
         } else {
             int createdID = meetings.size() + 1;
             PastMeeting meetingAdded = new PastMeetingImpl(createdID, date, contacts, text);
@@ -242,21 +234,6 @@ public class ContactManagerImpl implements ContactManager {
         }
     }
 
-
-    /**
-     *  Add  notes  to  a  meeting.
-     *
-     *  This  method  is  used  when  a  future  meeting  takes  place,  and  is
-     *  then  converted  to  a  past  meeting  (with  notes)  and  returned.
-     *
-     *  It  can  be  also  used  to  add  notes  to  a  past  meeting  at  a  later  date.
-     *
-     *  @param  id  the  ID  of  the  meeting
-     *  @param  text  messages  to  be  added  about  the  meeting.
-     *  @throws  IllegalArgumentException  if  the  meeting  does  not  exist
-     *  @throws  IllegalStateException  if  the  meeting  is  set  for  a  date  in  the  future
-     *  @throws  NullPointerException  if  the  notes  are  null
-     */
     public PastMeeting  addMeetingNotes(int  id,  String  text)     {
 
         Meeting m = getMeeting(id);
@@ -293,7 +270,6 @@ public class ContactManagerImpl implements ContactManager {
         }
     }
 
-
     public Set<Contact>  getContacts(String  name)      {
 
         if (name == null) {
@@ -310,7 +286,6 @@ public class ContactManagerImpl implements ContactManager {
             return contactsReturned;
         }
     }
-
 
     public Set<Contact> getContacts(int... ids)     {
 
