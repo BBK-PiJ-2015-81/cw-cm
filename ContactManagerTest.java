@@ -37,13 +37,20 @@ public class ContactManagerTest {
 
     }
 
+    @After
+    public void reset()     {
+
+        myManager = null;
+        myEmptyManager = null;
+
+    }
+
+
     // Test Constructor
 
     @Test
     public void testingConstructor() {
-        System.out.println(myManager);
-        assertNotNull(myEmptyManager);
+        assertNotNull(myManager);
     }
-
 
 }

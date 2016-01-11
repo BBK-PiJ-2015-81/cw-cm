@@ -38,8 +38,8 @@ public class ContactManagerImpl implements ContactManager {
             }
         } else {
             // If the file doesn't exist make it
-            contacts = new HashSet<Contact>();
-            meetings = new ArrayList<Meeting>();
+            if(contacts == null) contacts = new HashSet<Contact>();
+            if(meetings == null) meetings = new ArrayList<Meeting>();
         }
 
 
