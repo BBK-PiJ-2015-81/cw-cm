@@ -92,14 +92,11 @@ public class ContactManagerTest {
 
     @Test (expected = NullPointerException.class)
     public void testingAddFutureMeetingNullContacts()   {
-        assertEquals(1, myManager.addFutureMeeting(null, futureDate));
+        myManager.addFutureMeeting(null, futureDate);
     }
 
     @Test (expected = NullPointerException.class)
     public void testingAddFutureMeetingNullDate()   {
-        assertEquals(1, myManager.addFutureMeeting(players, null));
+        myManager.addFutureMeeting(players, null);
     }
-
-    
-
 }
