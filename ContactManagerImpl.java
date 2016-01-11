@@ -144,22 +144,33 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
-
-    /**
-     *  Returns  the  list  of  meetings  that  are  scheduled  for,  or  that  took
-     *  place  on,  the  specified  date
-     *
-     *  If  there  are  none,  the  returned  list  will  be  empty.  Otherwise,
-     *  the  list  will  be  chronologically  sorted  and  will  not  contain  any
-     *  duplicates.
-     *
-     *  @param  date  the  date
-     *  @return  the  list  of  meetings
-     *  @throws  NullPointerException  if  the  date  are  null
-     */
     public List<Meeting>  getMeetingListOn(Calendar  date)      {
 
-        return null;
+        if (date == null) {
+            throw new NullPointerException("Exception! You must provide a Date.");
+        }
+
+        Set<Meeting> unsortedContacts = new HashSet<Meeting>();
+        List<Meeting> sortedContacts = new ArrayList<Meeting>();
+
+        for (Meeting i : meetings) {
+            if (date.get(Calendar.YEAR) == date.get(Calendar.YEAR)
+                    && date.get(Calendar.MONTH) == date.get(Calendar.MONTH)
+                    && date.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH)) {
+                unsortedContacts.add(i);
+            }
+        }
+
+        for (Meeting i : unsortedContacts) {
+            sortedContacts.add(i);
+        }
+
+        Collections.sort(sortedContacts, new Comparator<Meeting>() {
+            public int compare(Meeting m1, Meeting m2) {
+                return m1.getDate().compareTo(m2.getDate());
+            }
+        });
+        return sortedContacts;
 
     }
 

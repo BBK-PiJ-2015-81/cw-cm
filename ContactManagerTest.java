@@ -132,6 +132,15 @@ public class ContactManagerTest {
     @Test (expected = NullPointerException.class)
     public void testingGetFutureMeetingListNull() {
         List<Meeting> testList = myManager.getFutureMeetingList(null);
+
+    }
+
+    @Test
+    public void testingGetFutureMeetingList() {
+        Contact[] testContact = myManager.getContacts("Ramos").toArray(new Contact[0]);
+        List<Meeting> testList = myManager.getFutureMeetingList(testContact[0]);
+        assertEquals(2, testList.size());
+        System.out.println(testList.size());
     }
 
     // Testing getMeeting
@@ -144,8 +153,14 @@ public class ContactManagerTest {
     // Testing getMeetingListOn
 
     @Test
-    public void testingGetMeetingListOn()   {
+    public void testingGetMeetingListOnNotNull()   {
         assertNotNull(myManager.getMeetingListOn(futureDate));
+    }
+
+    @Test
+    public void testingGetMeetingListOn()   {
+        List<Meeting> testList = myManager.getMeetingListOn(futureDate);
+        assertEquals(2, testList.size());
     }
 
 
@@ -168,8 +183,10 @@ public class ContactManagerTest {
 
     @Test
     public void testingGetPastMeetingListFor()   {
-        Contact[] testContact = myManager.getContacts("Robben").toArray(new Contact[0]);
+        Contact[] testContact = myManager.getContacts("Ramos").toArray(new Contact[0]);
         assertNotNull(myManager.getPastMeetingListFor(testContact[0]));
+
+
     }
 
     // Testing addMeetingNotes
