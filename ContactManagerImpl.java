@@ -78,15 +78,6 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
-
-    /**
-     * Returns the FUTURE meeting with the requested ID, or null if there is none.
-     *
-     * @param id the ID for the meeting
-     * @return the meeting with the requested ID, or null if it there is none.
-     *  @throws  IllegalArgumentException  if  there  is  a  meeting  with  that  ID  happening
-     *                 in  the  past
-     */
     public FutureMeeting  getFutureMeeting(int  id)     {
         for (Meeting i : meetings) {
             if (i.getId() == id)    {
@@ -101,13 +92,6 @@ public class ContactManagerImpl implements ContactManager {
         return null;
     }
 
-
-    /**
-     *  Returns  the  meeting  with  the  requested  ID,  or  null  if  it  there  is  none.
-     *
-     *  @param  id  the  ID  for  the  meeting
-     *  @return  the  meeting  with  the  requested  ID,  or  null  if  it  there  is  none.
-     */
     public Meeting  getMeeting(int  id)     {
         for (Meeting i : meetings) {
             if (i.getId() == id)    {
@@ -132,7 +116,39 @@ public class ContactManagerImpl implements ContactManager {
      */
     public List<Meeting>  getFutureMeetingList(Contact  contact)   {
 
-        return null;
+        // Check if contact exists in contact manager
+        boolean existingContact = false;
+        for (Contact i : contacts) {
+            if (i.equals(contact)) {
+                existingContact = true;
+            }
+        }
+
+        if (contact == null) {
+            throw new NullPointerException("Exception! You must provide a Contact.");
+        } else if (!existingContact) {
+            throw new IllegalArgumentException("Exception! Cannot find Contact.");
+        } else {
+
+            // Put Contacts in a set to remove duplicates
+
+            Set<Meeting> unsortedContacts = new HashSet<Meeting>();
+            for (Meeting i : meetings) {
+                if ((i instanceof FutureMeeting) && (i.getContacts().contains(contact))) {
+                    unsortedContacts.add(i);
+                }
+            }
+
+            // Put my set in a list
+
+
+
+
+
+            List<Meeting> sortedContacts = new ArrayList<Meeting>();
+        }
+
+
 
     }
 
