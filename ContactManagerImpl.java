@@ -101,19 +101,6 @@ public class ContactManagerImpl implements ContactManager {
         return null;
     }
 
-
-    /**
-     *  Returns  the  list  of  future  meetings  scheduled  with  this  contact.
-     *
-     *  If  there  are  none,  the  returned  list  will  be  empty.  Otherwise,
-     *  the  list  will  be  chronologically  sorted  and  will  not  contain  any
-     *  duplicates.
-     *
-     *  @param  contact  one  of  the  users  contacts
-     *  @return  the  list  of  future  meeting(s)  scheduled  with  this  contact  (maybe  empty).
-     *  @throws  IllegalArgumentException  if  the  contact  does  not  exist
-     *  @throws  NullPointerException  if  the  contact  is  null
-     */
     public List<Meeting>  getFutureMeetingList(Contact  contact)   {
 
         // Check if contact exists in contact manager
@@ -140,12 +127,17 @@ public class ContactManagerImpl implements ContactManager {
             }
 
             // Put my set in a list
-
-
-
-
-
             List<Meeting> sortedContacts = new ArrayList<Meeting>();
+            for (Meeting i : unsortedContacts) {
+                sortedContacts.add(i);
+            }
+
+            Collections.sort(sortedContacts, new Comparator<Meeting>() {
+                public int compare(Meeting m1, Meeting m2) {
+                    return m1.getDate().compareTo(m2.getDate());
+                }
+            });
+            return sortedContacts;
         }
 
 
