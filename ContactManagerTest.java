@@ -18,8 +18,8 @@ public class ContactManagerTest {
     public void setUp() {
 
         // Create some contact managers
-        ContactManager myManager = new ContactManagerImpl();
-        ContactManager myEmptyManager = new ContactManagerImpl();
+        myManager = new ContactManagerImpl();
+        myEmptyManager = new ContactManagerImpl();
 
         // Add some contacts
 
@@ -50,7 +50,11 @@ public class ContactManagerTest {
 
     @Test
     public void testingConstructor() {
+        //ContactManager myManager = new ContactManagerImpl();
+        assertNotNull(myEmptyManager);
         assertNotNull(myManager);
     }
+
+    
 
 }

@@ -274,13 +274,6 @@ public class ContactManagerImpl implements ContactManager {
         }
     }
 
-
-    /**
-     * Save all data to disk.
-     *
-     * This method must be executed when the program is
-     * closed and when/if the user requests it.
-     */
     public void flush()     {
 
         //Make a file
