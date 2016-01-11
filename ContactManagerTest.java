@@ -41,6 +41,7 @@ public class ContactManagerTest {
 
     @Test
     public void testingConstructor() {
+        System.out.println(myManager);
         assertNotNull(myEmptyManager);
     }
 

@@ -215,12 +215,19 @@ public class ContactManagerImpl implements ContactManager {
      *  @throws  IllegalArgumentException  if  the  name  or  the  notes  are  empty  strings
      *  @throws  NullPointerException  if  the  name  or  the  notes  are  null
      */
-    public int  addNewContact(String  name,  String  notes)    {
+    public int  addNewContact(String  name,  String  notes) {
 
-        return 1;
-
+        if ((name == null) || (notes == null)) {
+            throw new NullPointerException("Exception! A valid name or note was not provided.");
+        } else if (name.equals("") || notes.equals("")) {
+            throw new IllegalArgumentException("Exception! A valid name or note was not provided.");
+        } else {
+            int createdID = contacts.size() + 1;
+            Contact contactAdded = new ContactImpl(createdID, name, notes);
+            contacts.add(contactAdded);
+            return contactAdded.getId();
+        }
     }
-
 
     /**
      *  Returns  a  list  with  the  contacts  whose  name  contains  that  string.
