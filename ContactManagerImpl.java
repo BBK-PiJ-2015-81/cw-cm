@@ -62,8 +62,18 @@ public class ContactManagerImpl implements ContactManager {
      */
     public int addFutureMeeting(Set<Contact> contacts, Calendar date)   {
 
-        return 1;
-
+        if ((date == null) || (contacts == null)) {
+            throw new NullPointerException("Exception! You must provide contacts and a date");
+        } else if (contacts.size() == 0){
+            throw new IllegalArgumentException("Exception! You must provide contacts");
+        } else if (date.compareTo(presentTime) < 0) {
+            throw new IllegalArgumentException("Exception! You cannot provide a past date.");
+        } else {
+            int createdID = meetings.size() + 1;
+            FutureMeeting meetingAdded = new FutureMeetingImpl(createdID, date, contacts);
+            meetings.add(meetingAdded);
+            return meetingAdded.getId();
+        }
     }
 
 

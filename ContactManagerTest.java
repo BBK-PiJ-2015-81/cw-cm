@@ -48,10 +48,10 @@ public class ContactManagerTest {
         // Choose players attending the meeting
         players = myManager.getContacts(4, 6, 9, 10);
 
-        testFutureMeeting = myManager.addFutureMeeting(players, futureDate);
-        testMeeting = myManager.addFutureMeeting(players, futureDate);
-        testPastMeeting = myManager.addNewPastMeeting(players, pastDate, "Great meeting guys!");
+        testFutureMeeting = myManager.getFutureMeeting(myManager.addFutureMeeting(players, futureDate)); //Meeting id 1
+        testMeeting = myManager.getFutureMeeting(myManager.addFutureMeeting(players, futureDate)); // Meeting id 2
 
+        testPastMeeting = new PastMeetingImpl(4, pastDate, players, "Great meeting guys!"); // Meeting id 4
     }
 
     @After
@@ -62,6 +62,7 @@ public class ContactManagerTest {
         futureDate = null;
         testFutureMeeting = null;
         players = null;
+
 
         File myContacts = new File("." + File.separator + "contacts.txt");
         if(myContacts.exists()){
@@ -102,7 +103,7 @@ public class ContactManagerTest {
 
     @Test
     public void testingAddFutureMeeting()   {
-        assertEquals(1, myManager.addFutureMeeting(players, futureDate));
+        assertEquals(3, myManager.addFutureMeeting(players, futureDate));
     }
 
     @Test (expected = NullPointerException.class)
@@ -159,7 +160,7 @@ public class ContactManagerTest {
 
     @Test
     public void testingGetPastMeetingNull()  {
-        assertNotNull(myManager.getPastMeeting(3));
+        assertNotNull(myManager.getPastMeeting(4));
 
     }
 
@@ -167,14 +168,15 @@ public class ContactManagerTest {
 
     @Test
     public void testingGetPastMeetingListFor()   {
-        assertNotNull(myManager.getPastMeetingListFor(myManager.getContacts("Robben")));
+        Contact[] testContact = myManager.getContacts("Robben").toArray(new Contact[0]);
+        assertNotNull(myManager.getPastMeetingListFor(testContact[0]));
     }
 
     // Testing addMeetingNotes
 
     public void testingAddMeetingNotes()   {
         myManager.addMeetingNotes(3, "Great work lads");
-        assertEquals("Great work lads", myManager.getPastMeeting(3).getNotes());
+        assertEquals("Great work lads", myManager.getPastMeeting(4).getNotes());
     }
 
 
