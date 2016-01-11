@@ -95,7 +95,7 @@ public class ContactManagerTest {
     }
 
 
-    
+
     // Test Meeting Methods
 
     // Testing addFutureMeeting
@@ -142,15 +142,40 @@ public class ContactManagerTest {
 
     // Testing getMeetingListOn
 
-    //getMeetingListOn(futureDate)
+    @Test
+    public void testingGetMeetingListOn()   {
+        assertNotNull(myManager.getMeetingListOn(futureDate));
+    }
+
 
     // Testing addNewPastMeeting
 
+    @Test (expected = NullPointerException.class)
+        public void testingAddNewPastMeetingNull()  {
+        myManager.addNewPastMeeting(null, pastDate, "Bad meeting guys, what happened?!");
+    }
+
     // Testing getPastMeeting
+
+    @Test
+    public void testingGetPastMeetingNull()  {
+        assertNotNull(myManager.getPastMeeting(3));
+
+    }
 
     // Testing getPastMeetingListFor
 
+    @Test
+    public void testingGetPastMeetingListFor()   {
+        assertNotNull(myManager.getPastMeetingListFor(myManager.getContacts("Robben")));
+    }
+
     // Testing addMeetingNotes
+
+    public void testingAddMeetingNotes()   {
+        myManager.addMeetingNotes(3, "Great work lads");
+        assertEquals("Great work lads", myManager.getPastMeeting(3).getNotes());
+    }
 
 
 }
