@@ -48,10 +48,12 @@ public class ContactManagerTest {
         // Choose players attending the meeting
         players = myManager.getContacts(4, 6, 9, 10);
 
+        // Build some test meetings
+
         testFutureMeeting = myManager.getFutureMeeting(myManager.addFutureMeeting(players, futureDate)); //Meeting id 1
         testMeeting = myManager.getFutureMeeting(myManager.addFutureMeeting(players, futureDate)); // Meeting id 2
+        myManager.addNewPastMeeting(players, pastDate,"Great meeting guys!"); // Meeting id 3
 
-        testPastMeeting = new PastMeetingImpl(4, pastDate, players, "Great meeting guys!"); // Meeting id 4
     }
 
     @After
@@ -103,7 +105,7 @@ public class ContactManagerTest {
 
     @Test
     public void testingAddFutureMeeting()   {
-        assertEquals(3, myManager.addFutureMeeting(players, futureDate));
+        assertEquals(4, myManager.addFutureMeeting(players, futureDate));
     }
 
     @Test (expected = NullPointerException.class)
@@ -175,7 +177,7 @@ public class ContactManagerTest {
 
     @Test
     public void testingGetPastMeetingNull()  {
-        assertNotNull(myManager.getPastMeeting(4));
+        assertNotNull(myManager.getPastMeeting(3));
 
     }
 

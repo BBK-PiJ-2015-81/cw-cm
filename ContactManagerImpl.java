@@ -74,6 +74,16 @@ public class ContactManagerImpl implements ContactManager {
      */
     public PastMeeting getPastMeeting(int id)   {
 
+        for (Meeting i : meetings) {
+            if (i.getId() == id)    {
+                // Check if meeting is a future meeting
+                if (i instanceof FutureMeeting)   {
+                    throw new IllegalArgumentException("Exception! A Future Meeting is invalid");
+                } else {
+                    return (PastMeeting) i;
+                }
+            }
+        }
         return null;
 
     }
@@ -192,18 +202,6 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
-
-    /**
-     *  Create  a  new  record  for  a  meeting  that  took  place  in  the  past.
-     *
-     *  @param  contacts  a  list  of  participants
-     *  @param  date  the  date  on  which  the  meeting  took  place
-     *  @param  text  messages  to  be  added  about  the  meeting.
-     *  @throws  IllegalArgumentException  if  the  list  of  contacts  is
-     *
-    empty,  or  any  of  the  contacts  does  not  exist
-     *  @throws  NullPointerException  if  any  of  the  arguments  is  null
-     */
     public void  addNewPastMeeting(Set<Contact>  contacts,  Calendar  date,  String  text)     {
 
         if ((date == null) || (contacts == null)) {
@@ -217,8 +215,6 @@ public class ContactManagerImpl implements ContactManager {
             PastMeeting meetingAdded = new PastMeetingImpl(createdID, date, contacts, text);
             meetings.add(meetingAdded);
         }
-
-
     }
 
 
@@ -334,5 +330,17 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
+    public int contactsInManager(Set<Contact> contacts) {
+        // Return how many contacts should be in the Contact Manager
+        int n = 0;
 
+        for (Contact i : contacts) {
+            for (Contact j : contacts) {
+                if ((i.getName().equals(j.getName())) && (i.getId() == j.getId())) {
+                    n ++;
+                }
+            }
+        }
+        return n;
+    }
 }
