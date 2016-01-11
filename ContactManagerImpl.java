@@ -14,6 +14,7 @@ public class ContactManagerImpl implements ContactManager {
     private String MYFILE = "contacts.txt";
     private Calendar presentTime;
 
+
     // The Constructor
 
     public ContactManagerImpl() {
@@ -267,8 +268,37 @@ public class ContactManagerImpl implements ContactManager {
      */
     public Set<Contact> getContacts(int... ids)     {
 
-        return null;
+        if(ids.length == 0) {
+            throw new IllegalArgumentException("Exception! Please provide an id.");
+        } else  {
 
+            Set<Contact> contactsReturned = new HashSet<Contact>();
+
+            // Check the provided ids exist
+            int validIds = 0;
+
+            for (Contact c : getContacts("")) {
+                for (int i : ids) {
+                    if (c.getId() == i) {
+                        validIds++;
+                    }
+                }
+            }
+            if (validIds != ids.length) {
+                throw new IllegalArgumentException("Exception! An invalid ID was entered");
+            }
+
+            //Build set to return
+
+            for (Contact c : getContacts("")) {
+                for (int i : ids) {
+                    if (c.getId() == i) {
+                        contactsReturned.add(c);
+                    }
+                }
+            }
+            return contactsReturned;
+        }
     }
 
 
