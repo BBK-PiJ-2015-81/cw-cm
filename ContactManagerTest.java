@@ -15,7 +15,7 @@ public class ContactManagerTest {
     private Calendar pastDate;
     private FutureMeeting testFutureMeeting;
     private FutureMeeting testMeeting;
-    private FutureMeeting testPastMeeting;
+    private PastMeeting testPastMeeting;
     private Set<Contact> players;
 
     @Before
@@ -50,7 +50,7 @@ public class ContactManagerTest {
 
         testFutureMeeting = myManager.addFutureMeeting(players, futureDate);
         testMeeting = myManager.addFutureMeeting(players, futureDate);
-        testPastMeeting = myManager.addNewPastMeeting(players, pastDate);
+        testPastMeeting = myManager.addNewPastMeeting(players, pastDate, "Great meeting guys!");
 
     }
 
@@ -94,6 +94,8 @@ public class ContactManagerTest {
         assertTrue( new File("." + File.separator + "contacts.txt").exists());
     }
 
+
+    
     // Test Meeting Methods
 
     // Testing addFutureMeeting
@@ -133,14 +135,14 @@ public class ContactManagerTest {
 
     // Testing getMeeting
 
-    @Test (expected = NullPointerException.class)
-    public void testingGetMeetingListNull() {
-        List<Meeting> testList = myManager.getFutureMeetingList(null);
+    @Test
+    public void testingGetMeeting() {
+       assertEquals(testFutureMeeting, myManager.getMeeting(1));
     }
 
     // Testing getMeetingListOn
 
-    
+    //getMeetingListOn(futureDate)
 
     // Testing addNewPastMeeting
 
