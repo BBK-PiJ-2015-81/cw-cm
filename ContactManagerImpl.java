@@ -14,7 +14,6 @@ public class ContactManagerImpl implements ContactManager {
     private String MYFILE = "contacts.txt";
     private Calendar presentTime;
 
-
     // The Constructor
 
     public ContactManagerImpl() {
@@ -46,20 +45,6 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
-
-    /**
-     * Add a new meeting to be held in the future.
-     *
-     * An ID is returned when the meeting is put into the system. This
-     * ID must be positive and non-zero.
-     *
-     * @param contacts a list of contacts that will participate in the meeting
-     * @param date the date on which the meeting will take place
-     * @return the ID for the meeting
-     * @throws IllegalArgumentException if the meeting is set for a time
-     *       in the past, of if any contact is unknown / non-existent.
-     * @throws NullPointerException if the meeting or the date are null
-     */
     public int addFutureMeeting(Set<Contact> contacts, Calendar date)   {
 
         if ((date == null) || (contacts == null)) {
@@ -103,9 +88,17 @@ public class ContactManagerImpl implements ContactManager {
      *                 in  the  past
      */
     public FutureMeeting  getFutureMeeting(int  id)     {
-
+        for (Meeting i : meetings) {
+            if (i.getId() == id)    {
+                // Check if meeting is a past meeting
+                if (i instanceof PastMeeting)   {
+                    throw new IllegalArgumentException("Exception! A Past Meeting is invalid");
+                } else {
+                    return (FutureMeeting) i;
+                }
+            }
+        }
         return null;
-
     }
 
 
@@ -116,9 +109,12 @@ public class ContactManagerImpl implements ContactManager {
      *  @return  the  meeting  with  the  requested  ID,  or  null  if  it  there  is  none.
      */
     public Meeting  getMeeting(int  id)     {
-
+        for (Meeting i : meetings) {
+            if (i.getId() == id)    {
+                return i;
+            }
+        }
         return null;
-
     }
 
 
